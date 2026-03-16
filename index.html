@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caio Medeiros 77281</title>
+</head>
+<body>
+    <h1>Counter</h1>
+
+    <div id="boxCounter">0  </div>
+
+    <div id="container-button">
+        <button id="btn-decrement">Decrement</button>
+        <button id="btn-reset">Reset</button>
+        <button id="btn-increment">Increment</button>
+
+    </div>
+    
+    <script>
+        const boxCounter = document.getElementById('boxCounter');
+        const btnContainer = document.getElementById('container-button');
+
+        btnContainer.addEventListener('click', (event) => {
+            const buttonId = event.target.id;
+            let counterValue = parseInt(boxCounter.innerText);
+
+            if (buttonId === 'btn-decrement') {
+                counterValue--;
+            } else if (buttonId === 'btn-reset') {
+                counterValue = 0;
+            } else if (buttonId === 'btn-increment') {
+                counterValue++;
+            }
+
+            boxCounter.innerText = counterValue;
+        });
+    </script>
+</body>
+</html>
