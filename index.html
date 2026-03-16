@@ -3,27 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caio Medeiros 77281</title>
+    <title>Caio Medeiros - 77281</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #eff6ff 45%, #e0f2fe);
+            color: #0f172a;
+        }
+
+        .card {
+            width: min(420px, 100%);
+            background: white;
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            margin: 10px 0 28px;
+            color: #64748b;
+        }
+
+        #boxCounter {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin: 0;
+            color: #0369a1;
+        }
+
+        .status {
+            margin: 14px 0 24px;
+            color: #475569;
+            font-size: 0.95rem;
+            min-height: 22px;
+        }
+
+        #container-button {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            border: none;
+            border-radius: 14px;
+            padding: 14px 12px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #btn-decrement {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        #btn-reset {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        #btn-increment {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        .hint {
+            margin-top: 18px;
+            font-size: 0.88rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 18px;
+            }
+
+            #container-button {
+                grid-template-columns: 1fr;
+            }
+
+            #boxCounter {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Counter</h1>
+    <main class="card">
+        <h1>Counter</h1>
+        <p class="subtitle"></p>
 
-    <div id="boxCounter">0  </div>
+        <div id="boxCounter">0</div>
+        <div id="statusMessage" class="status">Press a button to start.</div>
 
-    <div id="container-button">
-        <button id="btn-decrement">Decrement</button>
-        <button id="btn-reset">Reset</button>
-        <button id="btn-increment">Increment</button>
+        <div id="container-button">
+            <button id="btn-decrement" type="button">Decrement</button>
+            <button id="btn-reset" type="button">Reset</button>
+            <button id="btn-increment" type="button">Increment</button>
+        </div>
 
-    </div>
-    
+        <p class="hint"></p>
+    </main>
+
     <script>
         const boxCounter = document.getElementById('boxCounter');
         const btnContainer = document.getElementById('container-button');
+        const statusMessage = document.getElementById('statusMessage');
+
+        function updateCounterColor(value) {
+            if (value > 0) {
+                boxCounter.style.color = '#16a34a';
+                statusMessage.textContent = 'Counter is positive.';
+            } else if (value < 0) {
+                boxCounter.style.color = '#dc2626';
+                statusMessage.textContent = 'Counter is negative.';
+            } else {
+                boxCounter.style.color = '#0369a1';
+                statusMessage.textContent = 'Counter is at zero.';
+            }
+        }
 
         btnContainer.addEventListener('click', (event) => {
             const buttonId = event.target.id;
-            let counterValue = parseInt(boxCounter.innerText);
+            let counterValue = parseInt(boxCounter.innerText, 10);
 
             if (buttonId === 'btn-decrement') {
                 counterValue--;
@@ -31,10 +158,15 @@
                 counterValue = 0;
             } else if (buttonId === 'btn-increment') {
                 counterValue++;
+            } else {
+                return;
             }
 
             boxCounter.innerText = counterValue;
+            updateCounterColor(counterValue);
         });
+
+        updateCounterColor(0);
     </script>
 </body>
 </html>
